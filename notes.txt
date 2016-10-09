@@ -1,0 +1,86 @@
+1.
+
+Work in this thesis is based on assumption that we already have good sketches. First this thesis must express
+motivation what are sketches, why are sketchces important and what is good sketch according to DISA research.
+
+Then we need to explain that in order for sketches to serve their purpose it's needed to find a good indexing approach
+to speed up in-memory lookups. We should also mention that we only consider Hamming distance for reasons of HW implementation.
+
+One promising approach for such task is Multi-Index hashing. We need to evaluate this approach and measure some metrics
+against sequential scan. Metrics could be numbers of hamming distance computation and time of search in different scenarios.
+Experiments should also evaluate performance of method based on selected substring size m and range r.
+
+MIH is based on dividng Sketch in m substrings. For range query r query string h and candidate g it must hold that
+they differ in at least substring i in at most floor(r/m) bits. Special case which is the most interesting is that when
+r < m there must be at least one identical substring to satisfy condition of r-range distance.
+
+Let p be length of Sketch in extreme case we choose m=p thus length of substring will be equal 1. Now r is most likely
+be less than m but we might need to examine almost all buckets because except from those who differ in all bits (inverted str)
+they will satisfy the condition.
+
+Interesting idea might be to restrict range r to be less than m and store all known sketch addresses in some hash table
+directing where to find them.
+
+2.
+
+In this thesis we should take advantage of the fact, that we know the whole database we're searching on in advance which
+isn't the case in the MIH article. We should restrict r < m because then we can focus on exact matches of substrings only.
+Assumption is that in k-NN queries usually most similar objects are those very close to query object.
+Original article reduced search space so we don't visit empty buckets. We can avoid this entirely because we know
+which buckets are not empty.
+
+There will be 2 levels of index:
+
+Single lower level hash-map will contain key: value items in format: {sketch: set(object id's with this sketch)}.
+Then m upper level hash-maps will contain key: value items in format: {sketch_substring: set(sketches with corresponding substring)}
+
+First we join all sets of sketch candidates from upper level hash maps. Then we retrieve all objects stored at these
+sketchces addresses in lower level hash-map.
+
+Disadvantage of this approach is, that each sketch will appear m-times - once in every upper level hash-map.
+
+Question is how to choose m. With larger m more candidates will be returned as candidate set. With smaller m
+range might be too restricted and not enough objects might be this close to query. It might be useful to
+create multiple Multi-indexes. Those with small m and large r restriction will be very fast and there's possibility
+to return enough objects for k-NN query. If not enough objects were returned another Multi-Index might be used
+to search for further candidates and so on.
+
+3.
+
+Levels lower and upper level indexes might be totally separated. Ideas for levels of index:
+
+Low-level: Sketch Object Storage.
+Init:
+SOS will receive iterator over sketchces and corresponding object id's and store them in sketch: set(object id's) format.
+K-NN Query:
+For querying it will receive set of candidate Sketchces, query Sketch and k. It will sort Sketches in set by similarity to query Sketch
+and collect Object IDs for these Sketchces until it finds k nearest objects or less if not enough objects were in bucket.
+
+Mid-level: Restricted Hash Multi-Index
+Init:
+RHMI will receive m, and iterator over all sketches. It will split each sketch into m splits and store them in format:
+[sketch_split_id]: sketch_split: set(sketchces with same corresponding substring)
+k-NN query:
+For querying it will receive k, and set of sketchces to exclude. It will split query string to m substrings, for each
+substring collect all sketches stored under this substring in hash-map which are not among sketchces to exclude. It will
+query SOS with union of these sketches candidates and k and will receive set of candidate objects. It will return
+candidate sketches, remaining k and collected candidate objects.
+
+Upper-level: Restricted Hash Multi-Index Aggregator
+Init:
+Aggregator will receive iterator over all sketchces and sorted list M containing values of m for initalizing Hash Multi-Indexes.
+For each value in M it will initialize one Multi-Index. First is the one that searches fast for closest objects last is that
+which might be slower but cover more objects.
+k-NN query:
+Util result candidate set contains k object ID's or time ran up it will send queries to RHMIs in order. It will collect set
+of result object IDs. For each next RHMI it will make union of Sketchces previous RHMIs returned for exclusion,
+ so their buckets in SOS are not examined multiple times. If count of objects is equal or greater than k it
+will return list of candidates.
+
+notes:
+- k in KNN query is requested size of candidates for further sequential scan.
+- when collecting result object ID's in order of distance of sketchces from query sketch real distance of objects
+might be computed to return them sorted. That might be implemented in later version. Maybe it's possible to yield
+sets of objects for each sketch distance separately and compute those expensive distances for each sketch distance during the process.
+- one of advantages of this approach is that whole mid-level might be deployed on separate cluster nodes to parallelize whole process.
+Key,Value storage such as Redis could be used for this task.

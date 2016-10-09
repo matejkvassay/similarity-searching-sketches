@@ -3,7 +3,7 @@ SIMILARITY SEARCHING IN METRICS SPACES USING SKETCHES
 
 This package contains implementation of experiments and documentation for my Diploma Thesis.
 
-Problem description
+Description
 -------------------
 
     Please note this is just informal description. For correct and exact definitions of Metric space Similarity searching
@@ -89,3 +89,10 @@ Run notebooks in browser:
 .. code-block:: shell
 
     jupyter notebook
+
+REFERENCES
+==========
+
+bitstring documentation:
+
+    http://pythonhosted.org/bitstring/index.html
