@@ -1,0 +1,9 @@
+Work in this thesis is based on assumption that we already have good sketches. First this thesis must express
+motivation what are sketches, why are sketchces important and what is good sketch according to DISA research.
+
+Then we need to explain that in order for sketches to serve their purpose it's needed to find a good indexing approach
+to speed up in-memory lookups. We should also mention that we only consider Hamming distance for reasons of HW implementation.
+
+One promising approach for such task is Multi-Index hashing. We need to evaluate this approach and measure some metrics
+against sequential scan. Metrics could be numbers of hamming distance computation and time of search in different scenarios.
+Experiments should also evaluate performance of method based on selected substring size m and range r.

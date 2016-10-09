@@ -34,11 +34,58 @@ Thesis
 
 Goal
 
-    The goal of this thesis is to research, implement and evaluate similarity searching on metric Sketches using
-    Multi-Index Hashing.
+    The goal of this thesis is to research, implement and evaluate Multi-index Hashing for Similarity searching on
+    Sketches.
 
 Thesis will be written and stored in separate Git repository using Thesis skeleton from:
 
 .. code-block:: shell
 
     https://github.com/Witiko/fithesis3.git
+
+
+DEVELOPMENT
+===========
+
+Install requirements manually if needed:
+
+.. code-block:: shell
+
+    pip install -r requirements.txt
+
+Install package for developement:
+
+.. code-block:: shell
+
+    python setup.py develop
+
+Install package for production:
+
+.. code-block:: shell
+
+    python setup.py install
+
+Run tests:
+
+.. code-block:: shell
+
+    py.test
+
+Commit:
+
+.. code-block:: shell
+
+    git pull
+    git commit -am 'commit message'
+    git push
+
+IPYTHON NOTEBOOKS
+=================
+
+http://jupyter.org
+
+Run notebooks in browser:
+
+.. code-block:: shell
+
+    jupyter notebook
