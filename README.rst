@@ -18,8 +18,8 @@ What's typical problem solved by Similarity Searching?
     k nearest objects. On large databases this is usually done by organizing database objects into some
     index (e.g. B-Tree, M-Tree) which reduces number of distance computations needed for receiving similar objects.
     To reduce number of distance computations we can use partitioning methods (e.g. Ball partitioning, Hyperplane partitioning)
-    which split search space in multiple areas and some clever filtering techniques to filter out some areas of space
-    leaving us with fewer candidates to less candidates examine for being similar to our query.
+    which split search space in multiple areas and some clever filtering techniques to filter out some areas of space,
+    leaving us with less candidates to examine for being similar to query object.
 
 What are Sketches?
 
@@ -41,4 +41,4 @@ Thesis will be written and stored in separate Git repository using Thesis skelet
 
 .. code-block:: shell
 
-    git clone https://github.com/Witiko/fithesis3.git
+    https://github.com/Witiko/fithesis3.git
