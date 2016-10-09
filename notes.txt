@@ -84,3 +84,7 @@ might be computed to return them sorted. That might be implemented in later vers
 sets of objects for each sketch distance separately and compute those expensive distances for each sketch distance during the process.
 - one of advantages of this approach is that whole mid-level might be deployed on separate cluster nodes to parallelize whole process.
 Key,Value storage such as Redis could be used for this task.
+
+4.
+
+*implement all result retieval procedures by yielding to enable batch processing of results
