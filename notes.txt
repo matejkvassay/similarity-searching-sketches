@@ -88,3 +88,14 @@ Key,Value storage such as Redis could be used for this task.
 4.
 
 *implement all result retieval procedures by yielding to enable batch processing of results
+
+5.
+
+Note that this Index will be used on "perfect" sketches, which means that bits are close to uncorrelated, so distribution
+of objects under different sketchces might be uniformly distributed and probably all buckets will contain some objects because
+bits with correlation == 1 are useless. Anyway even now approach should be appliable. If m gets bigger, than only candidates
+within close range are examined thus search should be pretty fast. In worst case what happens is that we won't be able to find
+enough objects and we will need to move to less restricted RHMI.
+
+Anyway concern is if number of buckets will be too big. And there comes question how does 0 correlation of bits affect number
+of possible buckets. How????
