@@ -37,6 +37,8 @@ Goal
     The goal of this thesis is to research, implement and evaluate Multi-index Hashing for Similarity searching on
     Sketches.
 
+    http://www.cs.toronto.edu/~norouzi/research/papers/multi_index_hashing.pdf
+
 Thesis will be written and stored in separate Git repository using Thesis skeleton from:
 
 .. code-block:: shell

@@ -98,4 +98,22 @@ within close range are examined thus search should be pretty fast. In worst case
 enough objects and we will need to move to less restricted RHMI.
 
 Anyway concern is if number of buckets will be too big. And there comes question how does 0 correlation of bits affect number
-of possible buckets. How????
+of possible buckets.
+
+6. Now it's time to work out an outline of thesis.
+
+1. Introduction to similarity searching, motivation for sketch approach, etc.
+2. Theoretical definitions and basic concepts of SimSearch, Sketch approach and Indexing etc. What's a good Sketch
+3. Description of problem this Thesis focuses on (We got Sketches, how to Search among them? Why can't we just SeqScan? ...)
+4. Currently existing approaches to this problem - MIH, maybe more?? Why it appears to be good approach for sketch searching?
+5. Description of selected/designed approach. Some Index utilizing MIH, some baseline approach for comparison.
+6. Description of experiments for evaluating this approach, questions we need to ask...
+7. Description of implementation of experiments, dataset, etc...
+8. Evaluation of experiments results - some graphs, results, conclusions and recommendations for parameter settings.
+9. Conclusion, future work.
+
+7.
+Evaluation of idea of fixing r.
+
+Number of possible candidates = m*(2^(m/p))
+Number of buckets in index =
