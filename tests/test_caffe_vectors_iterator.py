@@ -1,4 +1,5 @@
 from data_processing.caffe_vectors_iterator import CaffeVectorsIterable
+import numpy as np
 
 TEST_FILE_PATH = 'tests/data/caffe_vectors_iterator_test.data'
 
@@ -12,7 +13,7 @@ def test_caffe_vectors_iterator():
         assert type(item)==tuple
         assert type(item[0])==int
         assert item[0]==num
-        assert type(item[1])==tuple
-        assert item[1]==tuple([float(num)*0.001]*5)
+        assert type(item[1])==np.ndarray
+        assert item[1].all()==np.array([float(num)*0.001]*5).all()
         num+=1
 

@@ -1,5 +1,6 @@
-from sketch_searching.util import get_cfg
 import os
+
+from util import get_cfg
 
 TEST_FILE_PREFIX = 'test_util_py_sqt2teaddvgzdgtt5ophujhbdsr'
 

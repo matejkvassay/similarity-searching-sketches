@@ -1,0 +1,4 @@
+hyperplane_partitioner:
+  pivot_couples_count: 32
+  dist_metric: 'euclidean'
+  pivots_file_path: '/media/kvassay/SSD/data/xnovak_neuralnet/pivots-random-1024.data'
