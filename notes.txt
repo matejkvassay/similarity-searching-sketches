@@ -117,3 +117,16 @@ Evaluation of idea of fixing r.
 
 Number of possible candidates = m*(2^(m/p))
 Number of buckets in index =
+
+6.
+Ok so I need to implement sketch transforming as well. This shouldn't be difficult because MIH is only appliable
+for very shor sketches (8-16 maybe 32???). That might mean that correlations could be computed by brute force.
+
+p' is how many bits we will generate. From this count we'll choose subset of p bits which results in least overall
+correlation of bits between themselves. Then we'll save these sketches of uncorrelated bits and use them for indexing.
+
+Sketch transformation will be realised via hyperplane partitioning.
+
+
+Dataset is obtained from:
+http://disa.fi.muni.cz/~xnovak8/neuralnet/
