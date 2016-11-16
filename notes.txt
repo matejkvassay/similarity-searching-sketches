@@ -130,3 +130,30 @@ Sketch transformation will be realised via hyperplane partitioning.
 
 Dataset is obtained from:
 http://disa.fi.muni.cz/~xnovak8/neuralnet/
+
+7. Sketch transformer
+- should try to remove all possible tuples of bits to ensure small correlation
+- we will use heuristic approach
+- lets specify Obj. as MIN(SUM(corr(A,B)), where A,B are bits \in S, A!=B - single function can compute this on any
+  sketch matrix
+- now one by one, try to remove each bit, compute Obj.f. and in actual matrix remove bit with min. Obj. f. value
+
+Complexity:
+- Obj. computation requires for each couple of bits compute correlations of sketch matrix columns. Correlation computation
+  for these columns can be approximated by random sampling.
+
+  Complexity will be O(p^2*d), where sketch matrix shape is (p x d) assuming correlation computation is O(d). d is dataset
+  length and p is sketch length.
+
+  This will be repeated only p'-p times, where p' is longer sketch and p is sketch of desired length.
+
+  Compexity of whole heuristics will be O((p'-p)*(p'^2*d)). - polynomial. With sketch len 32 and original sketch len 64
+  on 100K dataset this will result in 32768*100000, which is too much....
+
+We'll change Obj. to minimize mean of pairwise correlations between sketch matrix columns
+
+Obj.: MIN SUM(MEAN([corr(A,B) for all (A,B) in sketch_matrix_columns if A!=B, idx_A<idx_B]
+
+8.
+Sketch transformer will generate a boolean mask for list of pivot couples. This mask will disable all undesirable pivot couples
+when computing partitions.
