@@ -156,8 +156,12 @@ Obj.: MIN SUM(MEAN([corr(A,B) for all (A,B) in sketch_matrix_columns if A!=B, id
 
 8.
 Sketch transformer will generate a boolean mask for list of pivot couples. This mask will disable all undesirable pivot couples
-when computing partitions.
+when computing partitions. (Done it in different way after all, just removing columns of sketch matrix and then removing pivot couple)
 
 9.
 When computing 50/50 ratio |0.5-r| is used where r is balance ratio between 1 and 0 for this bit. The lower this number
 the better balanced dataset is according to partitioning by this pivot couple (bit).
+
+10.
+SketchProducer is working well on 100K dataset, it's time to evaluate some results on 1M dataset - how much does it take to
+generate sketches, whats the correlation, balance deviation for various bit lengths on this set. (Try 8, 16, 32)
