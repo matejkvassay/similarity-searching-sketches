@@ -165,3 +165,19 @@ the better balanced dataset is according to partitioning by this pivot couple (b
 10.
 SketchProducer is working well on 100K dataset, it's time to evaluate some results on 1M dataset - how much does it take to
 generate sketches, whats the correlation, balance deviation for various bit lengths on this set. (Try 8, 16, 32)
+
+11.
+In this thesis the good index is index that responds to a query with a correct result and at the same time it minimizes the
+number of computation required to answer the query. We will use number of dist comps as a search time metric.
+Sketches are some encoding of multi-hyperplane partitioning. It's transformation which preserves if d(o1,o2)<d(o2,o3) => H(s1,s2)<H(s2,s3)
+where d is disntance in original space and ds distance in sketch space.
+
+=>
+Search index returns all TP and some TF. We expect index to always return all TP among candates. If that holds our goal is to minimize
+size of candidates which will result in minimizing count of TF.
+
+Metrics:
+Number of computation on sketches
+Number of candidates provided
+
+12. Multi Index hashing impl - r<m must hold, then only all sketches with at least 1 matching substrings need to be examined.
