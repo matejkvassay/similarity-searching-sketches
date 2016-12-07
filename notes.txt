@@ -181,3 +181,38 @@ Number of computation on sketches
 Number of candidates provided
 
 12. Multi Index hashing impl - r<m must hold, then only all sketches with at least 1 matching substrings need to be examined.
+
+13. MIH stats:
+1. mean bucket items count for various m
+2. range query candidates count for various r and m
+3. range query result count for various r and m
+4. insert complexity (don't forget that)
+5. hist bucket items count
+
+So far experimets tels us, that lowering m is better but it affects range we can obtain objects up to. => this technique
+is good up to some range on specific data, otherwise it doesn't make sense to use it.
+
+- split data to 99000/1000
+- evaluate on 1000
+- implement persistence for stats counter
+- add union count for range query to stats
+- make stats counters for various r
+- persist them somehow
+- worry about visualization later
+
+8b sketch
+0 0 | 0 0 | 1 1 | 1 0
+_ _
+m=4
+r<=3
+=> aspon 1 exact match
+
+13.
+I should compare it to normal hash index
+
+Next experiments:
+a) what's the difference between expected upperbound and actual cardinality of rq candidate set?
+b) how many buckets did search actually visited (some might not be existing)
+c) when we instead of m use mean number of visited buckets, will difference in a) lower?
+knn
+- we stack multiple indexes and let them search until it finds k candidate set
