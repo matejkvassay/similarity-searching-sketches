@@ -214,5 +214,7 @@ Next experiments:
 a) what's the difference between expected upperbound and actual cardinality of rq candidate set?
 b) how many buckets did search actually visited (some might not be existing)
 c) when we instead of m use mean number of visited buckets, will difference in a) lower?
+d) how do buckets actually overlap depending on m
+e) whats the sum of bucket counts depending on m (solves d))
 knn
 - we stack multiple indexes and let them search until it finds k candidate set
