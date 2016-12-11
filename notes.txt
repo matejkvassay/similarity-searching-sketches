@@ -218,3 +218,23 @@ d) how do buckets actually overlap depending on m
 e) whats the sum of bucket counts depending on m (solves d))
 knn
 - we stack multiple indexes and let them search until it finds k candidate set
+
+14.
+In some real world scenario we might not know the distribution of query data in advance. Question is, can we estimate
+candidate set sizes just from bucket sizes? Similarity of distributions of querying data and database objects will
+affect which buckets will be frequently accessed. Suppose that my q dataset has same distribution as database objects.
+The bucket under most frequent substring in hash index will contain largest number of object ID's. If query dataset is
+the same distribution, this bucket will be also the most visited bucket while querying.
+
+My dataset has in context of sketches some special properties - for each bit 40/60 balance in worst case and mean
+correlation of bit couples around 0.1.
+
+Why is that above mean visited buckets frequency is too high?
+a) error in evaluation
+b) 1000 samples is too small and results would staturate with larger sample
+c) small inbalance in data causes those value to deviate so much
+
+Would bits be prefectly evenly distributed if I had bit balance 50/50 and mean correlation = 0? Are my assumptions correct?
+Isn't there an error in selecting balanced and uncorrelated bits?
+
+If this is caused by inbalance in your data, histogram of bucket sizes might be helpful.s
