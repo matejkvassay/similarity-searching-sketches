@@ -1,6 +1,6 @@
 from util import get_cfg
 from sklearn.neighbors import DistanceMetric
-from data_processing.caffe_vectors_iterator import CaffeVectorsIterable
+from data_processing.decaf_vectors_iterator import CaffeVectorsIterable
 
 
 class MultiHyperplanePartitioner():
