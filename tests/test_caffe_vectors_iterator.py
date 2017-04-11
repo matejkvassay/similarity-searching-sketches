@@ -1,4 +1,4 @@
-from data_processing.caffe_vectors_iterator import CaffeVectorsIterable
+from data_processing.decaf_vectors_iterator import CaffeVectorsIterable
 import numpy as np
 
 TEST_FILE_PATH = 'tests/data/caffe_vectors_iterator_test.data'
