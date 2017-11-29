@@ -1,1 +1,0 @@
-#will make join on partitions list and create binary arrays. Then it'll do the pivot selection

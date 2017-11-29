@@ -1,6 +1,0 @@
-20. 10. 2016
-Tema prace bude: mam dobre sketche a teraz je treba riesit problem ako na nich efektivne vyhladavat.
-
-1. Osnova prace - precitat, je v poriadku? Co treba zmenit a doplnit?
-2. Navrh indexu - obmedzit r, vytvorit viac indexov, ????
-3. Pri Hash-indexoch sa stava ze mame velke mnozstvo possible bucketov na preskumanie ale
