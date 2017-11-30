@@ -1,7 +1,7 @@
 from similarity_searching_sketches.log_utils import IterationLogger
 from similarity_searching_sketches.log_utils import log
 import numpy as np
-from scipy.spatial.distance import minkowski, hamming
+from scipy.spatial.distance import minkowski
 
 
 def get_sample_distances(vec_matrix, sample_size, p, log_by=5000):
