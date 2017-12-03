@@ -38,12 +38,15 @@ def compute_knn_results(ids, database, queries, k, dist_f, log_by=5000):
         iter_log.next_iter()
         for j in range(len(queries)):
             dist = dist_f(database[i], queries[j])
-            if len(knn_res[j]) > 0:
-                if dist < knn_res[j][-1][1]:  # if object is not member of result set
+            if len(knn_res[j]) < k:
+                knn_res[j].append((ids[i], dist))
+                knn_res[j].sort(key=lambda x: x[1], reverse=False)
+            else:
+                if dist < knn_res[j][-1][1]:
                     knn_res[j].append((ids[i], dist))
                     knn_res[j].sort(key=lambda x: x[1], reverse=False)
-                    if len(knn_res[j]) > k:  # if > k objects remove last one
+                    if len(knn_res[j]) > k:
                         del knn_res[j][-1]
-            else:
-                knn_res[j].append((ids[i], dist))
+    for j in range(len(queries)):
+        knn_res[j] = [item[0] for item in knn_res[j]]
     return np.array(knn_res)
