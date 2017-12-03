@@ -4,6 +4,14 @@ import numpy as np
 from scipy.spatial.distance import minkowski
 
 
+def hamming(a, b):
+    return np.count_nonzero(a != b)
+
+
+def l1(a, b):
+    return minkowski(a, b, p=1)
+
+
 def get_sample_distances(vec_matrix, sample_size, p, log_by=5000):
     """
     Selects given number of reference objects from given vector matrix and computes distances from them to all other rows.

@@ -1,6 +1,7 @@
 import numpy as np
 from similarity_searching_sketches.correlation_matrix import get_upper_triangle_values
 
+
 def select_random_subset(corr_mtx, p, k):
     """
     Selects k random p-subsets of bits of Sketch Matrix and selects the one resulting in lowest mean correlation
@@ -44,7 +45,7 @@ def fast_minimal_correlation_columns(corr_mtx, p):
 
 def greedy_minimal_correlation_columns(corr_mtx, p):
     """
-    Implementation of GMCC algorithm. Selects low correlated subset of bits.
+    Implementation of GMCC algorithm. Selects low correlated subset of bits.z
     :param corr_mtx: Sketch Correlation Matrix
     :param p: Desired Sketch length
     :return: Tuple (array of selected column indices, mean correlation, correlation st.dev)
