@@ -40,27 +40,33 @@ def bucket_stats(mhis, m_list):
     return keys, stats
 
 
-def rq_candidate_set_size_stats(queries, mhis, m_list):
-    keys = ['m', 'r', 'm x Bucket size mean', 'Mean |C_1|+...+|C_m|', 'Mean |C|', 'Mean % filtered out']
+def rq_candidate_set_size_stats(queries, mhis, m_list, obj_cnt):
+    keys = ['m', 'r', 'Mean TP count', 'm x Bucket size mean', 'Mean |C_1|+...+|C_m|', 'Mean |C|', 'Mean % bucket overlap',
+            'Mean % db filtered']
     stats = {key: [] for key in keys}
     for i, mhi in enumerate(mhis):
         m = m_list[i]
         r = m - 1
         stats_counter = ListStatsCounter()
         for query in queries:
-            mhi.range_query(query, r, stats_counter=stats_counter)
+            res = mhi.range_query(query, r, stats_counter=stats_counter)
+            stats_counter.add('res_len', len(res))
         c_size = np.mean(stats_counter.stats['rq_candidates_cnt'])
         c_size_before_union = np.mean(stats_counter.stats['rq_candidates_before_union_cnt'])
+        tp_cnt = np.mean(stats_counter.stats['res_len'])
         stats['m'].append(m)
         stats['r'].append(r)
         stats['Mean |C_1|+...+|C_m|'].append(c_size_before_union)
         stats['Mean |C|'].append(c_size)
         if c_size_before_union == 0:
-            stats['Mean % filtered out'].append(0.0)
+            stats['Mean % bucket overlap'].append(0.0)
         else:
-            stats['Mean % filtered out'].append(100.0 - percentage(c_size, c_size_before_union))
+            stats['Mean % bucket overlap'].append(100.0 - percentage(c_size, c_size_before_union))
         bucket_cnts = bucket_sizes(mhi)
         stats['m x Bucket size mean'].append(np.mean(bucket_cnts) * m)
+        stats['Mean % db filtered'].append(percentage(obj_cnt - c_size, obj_cnt))
+        stats['Mean TP count'].append(tp_cnt)
+
     return keys, stats
 
 

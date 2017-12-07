@@ -1,4 +1,5 @@
 import numpy as np
+from similarity_searching_sketches.distances import hamming
 
 
 class MultiHashIndex(object):
@@ -13,21 +14,12 @@ class MultiHashIndex(object):
         self.index = [dict() for _ in range(self.m)]
         self.insert(sketch_db)
 
-    @staticmethod
-    def hamming_dist(sketch_a, sketch_b, stats_counter=None):
-        assert len(sketch_a) == len(sketch_b)
-        dist = sum([abs(sketch_a[i] - sketch_b[i]) for i in range(len(sketch_a))])
-        if stats_counter is not None:
-            stats_counter.add('hamming_dist', dist)
-        return dist
-
     def range_query(self, obj, r, stats_counter=None):
         sketch = obj[1]
         if r >= self.m:
             raise ValueError('Range (r) must be lesser than number of substrings (m).')
         candidates = self.get_range_query_candidate_ids(sketch, stats_counter=stats_counter)
-        result = set([obj_id for obj_id in candidates if \
-                      MultiHashIndex.hamming_dist(sketch, self.sketches[obj_id], stats_counter=stats_counter) <= r])
+        result = set([obj_id for obj_id in candidates if hamming(sketch, self.sketches[obj_id]) <= r])
         return result
 
     def get_range_query_candidate_ids(self, sketch, stats_counter=None):
