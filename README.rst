@@ -1,10 +1,13 @@
-Install package for development:
+PYPACKAGE
+=========
+
+Install package requirements:
 
 .. code-block:: shell
 
-    pip install -e .
+    pip install -r requirements.txt
 
-Install package for production:
+Install similarity-searching-sketches package:
 
 .. code-block:: shell
 
