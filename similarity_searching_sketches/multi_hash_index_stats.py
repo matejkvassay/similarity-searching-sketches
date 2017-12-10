@@ -22,7 +22,7 @@ def stats_to_pandas(keys, stats):
 
 
 def bucket_stats(mhis, m_list):
-    keys = ['m', 'r', 'Bucket count', 'Bucket size mean', 'Bucket size st. dev.', 'Bucket size sum',
+    keys = ['m', 'r', 'Bucket count', 'Bucket size mean', 'Bucket size sum',
             'm x Bucket size mean']
     stats = {key: [] for key in keys}
     for i, mhi in enumerate(mhis):
@@ -34,7 +34,6 @@ def bucket_stats(mhis, m_list):
         stats['r'].append(m_list[i] - 1)
         stats['Bucket count'].append(len(bucket_obj_cnt))
         stats['Bucket size mean'].append(np.mean(bucket_obj_cnt))
-        stats['Bucket size st. dev.'].append(np.std(bucket_obj_cnt))
         stats['Bucket size sum'].append(sum(bucket_obj_cnt))
         stats['m x Bucket size mean'].append(m_list[i] * np.mean(bucket_obj_cnt))
     return keys, stats
