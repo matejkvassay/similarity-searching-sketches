@@ -16,8 +16,8 @@ def get_upper_triangle_values(mtx, include=None, exclude=None):
     """
     Get values from upper triangle of Matrix.
     :param mtx: Numpy matrix
-    :param include: If not None only columns with these indices will be included.
-    :param exclude: If not None all columns with these indices will be excluded.
+    :param include: If not None only columns and rows with these indices will be included.
+    :param exclude: If not None all columns and rows with these indices will be excluded.
     :return: Array of values from upper triangle of given matrix.
     """
     if include is None and exclude is None:
