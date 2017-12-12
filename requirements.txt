@@ -38,7 +38,6 @@ pyzmq==16.0.3
 qtconsole==4.3.1
 scikit-learn==0.19.1
 scipy==1.0.0
--e git+git@github.com:matejkvassay/similarity-searching-sketches.git@0abbda97389d6dbf2895b000fce70c0222ed0ea7#egg=similarity_searching_sketches
 simplegeneric==0.8.1
 six==1.11.0
 terminado==0.8

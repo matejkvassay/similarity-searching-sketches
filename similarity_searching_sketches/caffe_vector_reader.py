@@ -2,7 +2,16 @@ import numpy as np
 
 
 class CaffeVectorsIterator(object):
+    """
+    Iterates over stored DeCaf descriptors from Profiset collection.
+    """
     def __init__(self, file_path, limit=None, allow_duplicities=True):
+        """
+        Initializes iterator.
+        :param file_path: Path to data file.
+        :param limit: Maximum number of objects to read.
+        :param allow_duplicities: Allow duplicate items to be yielded.
+        """
         self.f = open(file_path, 'rb')
         self.limit = limit
         self.allow_dupl = allow_duplicities

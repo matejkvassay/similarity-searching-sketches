@@ -4,24 +4,50 @@ from similarity_searching_sketches.utils import percentage
 
 
 class ListStatsCounter(object):
+    """
+    Collector of statistics for evaluation of MHI.
+    """
+
     def __init__(self):
         self.stats = dict()
 
     def add(self, key, val):
+        """
+        Adds new value to list under the key.
+        :param key:
+        :param val:
+        :return:
+        """
         if key in self.stats:
             self.stats[key].append(val)
         else:
             self.stats[key] = [val]
 
     def to_df(self):
+        """
+        Transforms stats counter to pandas dataframe.
+        :return: Pandas dataframe of stats.
+        """
         return pd.DataFrame.from_dict(self.stats)
 
 
 def stats_to_pandas(keys, stats):
+    """
+    Transforms dictionary of statistics with known keys to pandas dataframe.
+    :param keys: Keys of columns for dataframe/
+    :param stats: Dictionary of stats.
+    :return:
+    """
     return pd.DataFrame.from_dict({key: stats[key] for key in keys}).reindex_axis(keys, axis=1)
 
 
 def bucket_stats(mhis, m_list):
+    """
+    Computes bucket statistics for given iterable of Multi-hash indexes.
+    :param mhis: Iterable of MHI's.
+    :param m_list: List of split sizes.
+    :return: Tuple keys, stats, where stats is a dictionary of computed statistics.
+    """
     keys = ['m', 'r', 'Bucket count', 'Bucket size mean', 'Bucket size sum',
             'm x Bucket size mean']
     stats = {key: [] for key in keys}
@@ -40,7 +66,16 @@ def bucket_stats(mhis, m_list):
 
 
 def rq_candidate_set_size_stats(queries, mhis, m_list, obj_cnt):
-    keys = ['m', 'r', 'Mean TP count', 'm x Bucket size mean', 'Mean |C_1|+...+|C_m|', 'Mean |C|', 'Mean % bucket overlap',
+    """
+    Evaluates multiple range queries on iterable of MHI's and computes mean statistics of candidate sets.
+    :param queries: Iterable of query sketches.
+    :param mhis: Iterable of MHI's.
+    :param m_list: Iterable of numbers of splits of MHI's.
+    :param obj_cnt: Count of objects in dataset to compute % from.
+    :return: Tuple keys, stats, where stats is a dictionary of computed statistics.
+    """
+    keys = ['m', 'r', 'Mean TP count', 'm x Bucket size mean', 'Mean |C_1|+...+|C_m|', 'Mean |C|',
+            'Mean % bucket overlap',
             'Mean % db filtered']
     stats = {key: [] for key in keys}
     for i, mhi in enumerate(mhis):
@@ -70,6 +105,11 @@ def rq_candidate_set_size_stats(queries, mhis, m_list, obj_cnt):
 
 
 def bucket_sizes(mhi):
+    """
+    Returns iterable of bucket sizes for given MHI.
+    :param mhi: MHI.
+    :return: Iterable of bucket sizes.
+    """
     bucket_obj_cnt = list()
     for index in mhi.index:
         for bucket in index:

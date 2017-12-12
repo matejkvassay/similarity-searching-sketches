@@ -5,10 +5,22 @@ from scipy.spatial.distance import minkowski
 
 
 def hamming(a, b):
+    """
+    Computers hamming distance between two binary strings.
+    :param a: First object.
+    :param b: Second object.
+    :return: Hamming distance.
+    """
     return np.count_nonzero(a != b)
 
 
 def l1(a, b):
+    """
+    Computes Manhattan distance between two vectors.
+    :param a: Vector A.
+    :param b: Vector B.
+    :return: Minkowski L1 distance.
+    """
     return minkowski(a, b, p=1)
 
 

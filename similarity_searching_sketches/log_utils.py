@@ -6,16 +6,35 @@ logger = logging.getLogger()
 
 
 def log(msg):
+    """
+    Log message.
+    :param msg: Message.
+    :return:
+    """
     logger.info(msg)
 
 
 def log_pfx(obj, msg, *args):
+    """
+    Log message with prefix containing class of given object.
+    :param obj: Object.
+    :param msg: Message.
+    :param args: Arguments for message formatting.
+    :return:
+    """
     logger.info(obj.__class__.__name__ + '| ' + msg, *args)
 
 
 class IterationLogger(object):
+    """
+    Logger which logs on output after specified number of iterations.
+    """
     def __init__(self, message='Started iteration no.: %s\n Time from previous iteration: %ss\n Time from start: %ss',
                  log_by=1000):
+        """
+        :param message: Message that should be logged.
+        :param log_by: Log after this count of iterations/
+        """
         self.log_by = log_by
         self.num_iter = 0
         self.msg = message
@@ -23,6 +42,10 @@ class IterationLogger(object):
         self.time_this_iter = None
 
     def next_iter(self):
+        """
+        This method has to be called in each iteration.
+        :return:
+        """
         if self.time_this_iter is None:
             self.time_this_iter = time()
         if self.time_started is None:

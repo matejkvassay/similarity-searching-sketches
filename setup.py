@@ -7,7 +7,7 @@ with codecs_open('README.rst', encoding='utf-8') as f:
 
 setup(name='similarity-searching-sketches',
       version='0.0.2',
-      description=u"Module for Diploma thesis on Similarity Searching on metric Sketches.",
+      description=u"Package containing implementations used in metric sketch evaluation experiments.",
       long_description=long_description,
       classifiers=[],
       keywords='',
